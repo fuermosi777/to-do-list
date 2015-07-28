@@ -1,0 +1,75 @@
+@import '../Base/Base';
+.Item {
+    height: 50px;
+    border-bottom: 1px solid #E1DEDE;
+    &-left,
+    &-right {
+        float: left;
+        display: inline-block;
+        height: 100%;
+    }
+    &-left {
+        width: 50px;
+        margin-right: 3px;
+        border-right: 1px solid #F3E6E2;
+        span.check-box {
+            border-radius: 1px;
+            border: 1px solid #6EB3C9;
+            width: 20px;
+            height: 20px;
+            display: block;
+            margin: 15px 0 0 15px;
+            background-color: #FAF9F9;
+            cursor: pointer;
+            &:hover {
+                background-color: lighten(#6EB3C9, 35%)
+            }
+            &.complete {
+                border-color: #D4D4D4;
+                position: relative;
+                background-color: #F7F5F5;
+                &:hover {
+                    background-color: darken(#F7F5F5, 4%)
+                }
+                .fa {
+                    color: #CCCECF;
+                    line-height: 18px;
+                    text-align: center;
+                    width: 100%;
+                    font-size: 1.4rem;
+                }
+            }
+        }
+    }
+    &-right {
+        width: 500 - 50 - 5px;
+        border-left: 1px solid #F3E6E2;
+        color: #8B8F97;
+        font-size: 1.4rem;
+        line-height: 50px;
+        padding: 0 0 0 15px;
+        overflow: hidden;
+        position: relative;
+        &.complete {
+            text-decoration: line-through;
+            color: lighten(#8B8F97, 25%)
+        }
+        span.fa {
+            position: absolute;
+            font-size: 1.6rem;
+            color: #CCCECF;
+            top: 15px;
+            right: 15px;
+            cursor: pointer;
+            display: none;
+            &:hover {
+                color: darken(#cccecf, 10%);
+            }
+        }
+        &:hover {
+            span.fa {
+                display: block;
+            }
+        }
+    }
+}

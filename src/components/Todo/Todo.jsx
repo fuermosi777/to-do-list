@@ -1,39 +1,22 @@
 import React from 'react';
 import Styles from './Todo.less';
 import NoteStore from '../../stores/NoteStore.jsx';
+import Item from '../Item/Item.jsx';
 
 let Todo = React.createClass({
 	getInitialState() {
 		return {
-			note:''
+			note:'',
+			noteData: null,
+			incompleteNum: NoteStore.getIncompleteNum()
 		}
 	},
 
 	componentWillMount() {
-		let data = NoteStore.getAll();
-		// put some dummy notes
-		if (!data) {
-			data = {
-				1438058773285: {
-					note: 'Buy a new phone',
-					complete: false
-				},
-				1438058816745: {
-					note: 'Change the lock',
-					complete: true
-				}
-			};
-		}
-		this.setState({noteData: data});
+		this.fetchNoteData(true);
 	},
 
 	render() {
-		let noteList = [];
-		for (let item in this.state.noteData) {
-			noteList.push(
-				<span>{item}</span>
-			);
-		}
 		return (
 			<div className="Todo">
 				<div className="Todo-container">
@@ -44,8 +27,12 @@ let Todo = React.createClass({
 							{this.state.note ? '' : <label className="note-label">Click to add new note</label>}
 						</div>
 					</div>
-					{noteList}
-					<div className="bottom"></div>
+					{this.state.noteData.map((value) => {
+						return <Item data={value} onUpdate={this.handleItemUpdate} onDelete={this.handleItemDelete}/>
+					})}
+					{this.state.noteData.length < 1 ? '' : <div className="bottom">
+						<span className="text">{this.state.incompleteNum} item left</span>
+					</div>}
 				</div>
 			</div>
 		);
@@ -61,12 +48,53 @@ let Todo = React.createClass({
 				return;
 			} else {
 		        this.addNewNote(this.state.note);
+		        // clear input and memory
+		        e.target.value = '';
+		        this.setState({note:''});
 		    }
 	    }
 	},
 
 	addNewNote(note) {
-		NoteStore.create(note);
+		let index = NoteStore.create(note);
+		let data = this.state.noteData;
+		data.push(NoteStore.searchNote(index).value);
+		this.setState({noteData: data});
+		this.updateNumbers();
+	},
+
+	handleItemUpdate() {
+		this.updateNumbers();
+	},
+	
+	handleItemDelete() {
+		this.updateNumbers();
+	},
+
+	updateNumbers() {
+		this.setState({
+			incompleteNum: NoteStore.getIncompleteNum()
+		});
+	},
+
+	fetchNoteData(isFirstTime=false) {
+		let data = NoteStore.getAll();
+		// if first open then add some dummy data
+		if (isFirstTime) {
+			if (data.length < 1) {
+				data = [{
+					id: 1438058773285,
+					note: 'Buy a new phone',
+					isComplete: false
+				}, {
+					id: 1438058816745,
+					note: 'Change the lock',
+					isComplete: true
+				}];
+				NoteStore.setAll(data);
+			}
+		}
+		this.setState({noteData: data});
 	}
 });
 

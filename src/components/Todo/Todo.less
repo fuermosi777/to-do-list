@@ -2,13 +2,13 @@
 .Todo {
     height: 100%;
     position: relative;
-    background-color: #F7F7F7;
     overflow: hidden;
     &-container {
         width: 500px;
-        margin: 100px auto 0;
+        margin: 100px auto;
         background-color: white;
         border: 1px solid #E1DEDE;
+        position: relative;
         &:before {
         	content: '';
         	position: absolute;
@@ -71,6 +71,12 @@
         }
         .bottom {
         	height: 40px;
+            padding: 0 15px;
+            span.text {
+                line-height: 40px;
+                color: #D7D8DA;
+                font-size: 1.2rem;
+            }
         }
     }
 }
