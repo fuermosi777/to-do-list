@@ -32,6 +32,7 @@ let Todo = React.createClass({
 					})}
 					{this.state.noteData.length < 1 ? '' : <div className="bottom">
 						<span className="text">{this.state.incompleteNum} item left</span>
+						<span className="text pull-right">Coding challenge for Zenefits <a href="http://liuhao.im">Hao Liu</a></span>
 					</div>}
 				</div>
 			</div>
@@ -84,11 +85,11 @@ let Todo = React.createClass({
 			if (data.length < 1) {
 				data = [{
 					id: 1438058773285,
-					note: 'Buy a new phone',
+					note: 'Get a job',
 					isComplete: false
 				}, {
 					id: 1438058816745,
-					note: 'Change the lock',
+					note: 'Prepare for the interview',
 					isComplete: true
 				}];
 				NoteStore.setAll(data);
