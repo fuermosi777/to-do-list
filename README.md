@@ -10,7 +10,7 @@ Author: [Hao Liu](http://liuhao.im)
 Prerequisite
 ============
 
-`npm` installed
+[npm](https://www.npmjs.com/) installed
 
 To start
 ========
